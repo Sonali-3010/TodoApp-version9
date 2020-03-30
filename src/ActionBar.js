@@ -1,5 +1,5 @@
 import React from 'react';
-import Button from './Button.js';
+import Button from './buttons/Button.js';
 import { connect } from 'react-redux';
 import { markAllDone, deleteIncomplete, deleteCompleted, deleteAll } from './redux/index'
 

@@ -7,6 +7,7 @@ const initalState = {
 }
 
 const reducer = (state=initalState, action) => {
+    let tasksList
     switch(action.type){
 
         case actionTypes.ADD_TASK: 

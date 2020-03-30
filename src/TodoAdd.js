@@ -1,5 +1,6 @@
 import React from 'react';
-import Button from './Button.js';
+// import Button from './buttons/Button.js';
+import { AddTaskButton } from './buttons/CustomButtons'
 import { addTask } from './redux/index'
 import { connect } from 'react-redux';
 
@@ -45,11 +46,7 @@ class TodoAdd extends React.Component {
             onChange={this.handleChange}
             onKeyDown={this.onKeyDown}
           />
-          <Button
-            className="AddTaskButton"
-            displayText="Add"
-            onClick={this.onAddTaskClick}
-          />
+          <AddTaskButton onClick={this.onAddTaskClick} />
         </div>
       )
     }
