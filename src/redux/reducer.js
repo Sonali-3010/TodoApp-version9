@@ -14,7 +14,8 @@ const reducer = (state=initalState, action) => {
             const todo = {
                 task: action.task,
                 isComplete: false,
-                isImportant: false
+                isImportant: false,
+                timeStamp: action.timeStamp
             }
             tasksList = update(state.tasks, {$push: [todo]});
             return {

@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { Draggable } from 'react-beautiful-dnd'
 import { DeleteButton, DoneButton, NotDoneButton, MarkImportantButton, MarkTrivialButton } from './buttons/CustomButtons'
 import { deleteTask, markDone, markNotDone, markImportant, markTrivial } from './redux/index'
 
@@ -8,6 +9,7 @@ class Todo extends React.Component{
         const task = this.props.todo.task
         const isComplete = this.props.todo.isComplete
         const isImportant = this.props.todo.isImportant
+        const timeStamp = this.props.todo.timeStamp
 
         let text = isComplete ? <s>{task}</s> : task
         text = isImportant ? <strong>{text}</strong> : text
@@ -15,15 +17,27 @@ class Todo extends React.Component{
         let notDoneButton = <NotDoneButton onClick={this.props.markNotDone} />
         let markImportantButton = <MarkImportantButton onClick={this.props.markImportant} />
         let markTrivialButton = <MarkTrivialButton onClick={this.props.markTrivial} />
+        const { provided, innerRef } = this.props;
 
-        return (
-        <div className="Todo">
-            {isImportant ? markTrivialButton : markImportantButton}
+        // console.log(timeStamp)
+        const textObj = <div className="TodoText">
             {text}
-            {isComplete ? notDoneButton : doneButton}
-            <DeleteButton onClick={this.props.deleteTask} />
+            <br></br>
+            <div className="timeStamp">{date.getDate(timeStamp)}</div>
+        </div>
+        return (
+        <div className="Todo" 
+            {...provided.draggableProps}
+            {...provided.dragHandleProps}
+            ref={innerRef}
+        >
+            <span>{isImportant ? markTrivialButton : markImportantButton}</span>
+            <span>{textObj}</span>
+            <span>{isComplete ? notDoneButton : doneButton}</span>
+            <span><DeleteButton onClick={this.props.deleteTask} /></span>
         </div>
     )}
+    
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
@@ -59,7 +73,44 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     }
 }
 
+const date = function(){
+    let obj = {}
+    // const months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+    const days = ["Sun", "Mon", "Tues", "Wed", "Thu", "Fri", "Sat"];
+
+    obj.getDate = (d) => {
+        return (days[d.getDay()]+" "+d.getDate()+'/'+(d.getMonth()+1)+'/'+d.getFullYear()+" "+d.getHours()+":"+d.getMinutes()+":"+d.getSeconds())
+    }
+    return obj;
+}()
+
 export default connect(
     null, 
     mapDispatchToProps)
     (Todo);
+
+
+
+
+
+//     return (
+    //     <div className="Todo">
+    //         {isImportant ? markTrivialButton : markImportantButton}
+    //         {text}
+    //         {isComplete ? notDoneButton : doneButton}
+    //         <DeleteButton onClick={this.props.deleteTask} />
+    //         <br></br>
+    //         <div className="timeStamp">{date.getDate(timeStamp)}</div>
+    //     </div>
+    // )}
+
+
+     //     return (
+    //     <div className="Todo">
+    //         {isImportant ? markTrivialButton : markImportantButton}</span>
+    //         {textObj}</span>
+    //         {isComplete ? notDoneButton : doneButton}</span>
+    //         <DeleteButton onClick={this.props.deleteTask} /></span>
+    //     </div>
+    // )}
+
