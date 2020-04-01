@@ -8,6 +8,14 @@ export const addTask = () => {
     }
 }
 
+export const todoDraggedToPosition = () => {
+    return {
+        type: actionTypes.TODO_DRAGGED_TO_POSITION,
+        fromPosition: null,
+        toPosition: null
+    }
+}
+
 export const markImportant = () => {
     return {
         type: actionTypes.MARK_TASK_IMPORTANT,

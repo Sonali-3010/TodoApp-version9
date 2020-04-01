@@ -23,6 +23,15 @@ const reducer = (state=initalState, action) => {
                 tasks: tasksList
             }
 
+        case actionTypes.TODO_DRAGGED_TO_POSITION:
+            const taskDragged = state.tasks[action.fromPosition]
+            tasksList = update(state.tasks, {$splice: [[action.fromPosition,1]]})
+            tasksList.splice(action.toPosition, 0, taskDragged)
+            return {
+                ...state,
+                tasks: tasksList
+            }
+
         case actionTypes.MARK_TASK_IMPORTANT:
             tasksList = update(state.tasks, {[action.index]: {isImportant: {$set: true}}}) 
             return {

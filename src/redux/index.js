@@ -1,4 +1,5 @@
 export { addTask } from  './taskActions'
+export { todoDraggedToPosition } from './taskActions'
 export { markDone } from  './taskActions'
 export { markNotDone } from  './taskActions'
 export { markImportant } from  './taskActions'

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Provider } from 'react-redux'
+import { Provider, connect } from 'react-redux'
 import { store } from './redux/store.js'
 import { DragDropContext, Droppable } from 'react-beautiful-dnd'
 import Backend from 'react-dnd-html5-backend'
@@ -12,8 +12,14 @@ import ActionBar from './ActionBar.js';
 
 
 class App extends React.Component {
-
   onDragEnd = (result) => {
+    const { destination, source, draggableID } = result
+    if(!destination){ return }
+    if(
+      destination.droppableId === source.droppableId &&
+      destination.index === source.index
+    ){ return }
+
 
   }
 
@@ -42,4 +48,10 @@ class App extends React.Component {
   }
 }
 
-export default App;
+const mapStateToProps = (state) => {
+    return {
+        tasks: state.tasks
+    }
+}
+
+export default connect(mapStateToProps)(App);
