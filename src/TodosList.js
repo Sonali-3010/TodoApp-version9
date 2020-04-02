@@ -3,7 +3,6 @@ import Todo from './Todo'
 import { connect } from 'react-redux'
 import { Draggable } from 'react-beautiful-dnd';
 
-
 String.prototype.hashCode = function() {
     var hash = 0, i, chr;
     if (this.length === 0) return hash;

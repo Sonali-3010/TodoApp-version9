@@ -1,17 +1,19 @@
 import React from 'react'
-import { Provider, connect } from 'react-redux'
+
+import { Provider } from 'react-redux'
 import { store } from './redux/store.js'
-import { DragDropContext, Droppable } from 'react-beautiful-dnd'
-import Backend from 'react-dnd-html5-backend'
+import { DragDropContext } from 'react-beautiful-dnd'
 
 import './App.css';
-import TodosList from './TodosList'
-import TodoAdd from './TodoAdd.js';
-import ActionBar from './ActionBar.js';
-
-
+import TodoApp from './TodoApp.js';
 
 class App extends React.Component {
+  
+  constructor(props){
+    super(props)
+    this.child = React.createRef();
+  }
+
   onDragEnd = (result) => {
     const { destination, source, draggableID } = result
     if(!destination){ return }
@@ -20,7 +22,9 @@ class App extends React.Component {
       destination.index === source.index
     ){ return }
 
-
+    console.log('Drag ended.')
+    console.log(this.child)
+    this.child.current.getAlert()
   }
 
   render(){
@@ -28,19 +32,7 @@ class App extends React.Component {
       <Provider store={store}>
         <DragDropContext onDragEnd={this.onDragEnd}>
           <div className='App'>
-            <br></br>
-            <h1 className='header'>TodoApp</h1>
-            <TodoAdd />
-            <Droppable droppableId='TodoList'>
-              {(provided) => (
-                <TodosList 
-                  ref = {provided.innerRef}
-                  provided={provided}
-                >{provided.placeholder}
-                </TodosList>
-              )}
-            </Droppable>
-            <ActionBar />
+            <TodoApp ref={this.child}/>
           </div>
         </DragDropContext>
       </Provider>
@@ -48,10 +40,4 @@ class App extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => {
-    return {
-        tasks: state.tasks
-    }
-}
-
-export default connect(mapStateToProps)(App);
+export default App

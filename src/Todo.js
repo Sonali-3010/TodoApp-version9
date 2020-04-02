@@ -1,6 +1,5 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Draggable } from 'react-beautiful-dnd'
 import { DeleteButton, DoneButton, NotDoneButton, MarkImportantButton, MarkTrivialButton } from './buttons/CustomButtons'
 import { deleteTask, markDone, markNotDone, markImportant, markTrivial } from './redux/index'
 
